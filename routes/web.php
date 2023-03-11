@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,14 +44,6 @@ use Illuminate\Support\Facades\Route;
 //    return response("{$request->name} {$request->city}");
 //});
 
-// all listing
-Route::get('/', function(){
-   return view('listings', [
-       "heading"=>"latest listings",
-       "listings"=> Listing::all()
-   ]);
-});
-
 //// single listing find
 //Route::get('/listings/{id}', function($id){
 //    return view('listing', [
@@ -58,10 +51,8 @@ Route::get('/', function(){
 //    ]);
 //});
 
+// all listing
+Route::get('/', [ListingController::class, 'index']);
+
 // route model binding
-Route::get('/listings/{listing}', function(Listing $listing){
-    return view('listing', [
-        'listing' => $listing
-    ]);
-    // returns 404 view if record not found in listings tables
-});
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
