@@ -51,9 +51,17 @@ Route::get('/', function(){
    ]);
 });
 
-// single listing find
-Route::get('/listings/{id}', function($id){
+//// single listing find
+//Route::get('/listings/{id}', function($id){
+//    return view('listing', [
+//        "listing" => Listing::find($id)
+//    ]);
+//});
+
+// route model binding
+Route::get('/listings/{listing}', function(Listing $listing){
     return view('listing', [
-        "listing" => Listing::find($id)
+        'listing' => $listing
     ]);
+    // returns 404 view if record not found in listings tables
 });
